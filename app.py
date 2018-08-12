@@ -18,9 +18,9 @@ def webhook():
     r.headers['Content-Type']= 'application/json'
     return r
 
-def lunchparse():
+def lunchparse():  #점심 파싱
     t = time(now)
-    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+t[1]+t[2]
+    url = "http://pungduck.hs.kr/lunch.view?date="+t[0]+t[1]+t[2]
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
@@ -33,16 +33,34 @@ def lunchparse():
         return lun #메뉴출력
     except:
         return "급식이 없어 "
-        
+    
+def eventparse(): #학사일정을 파싱하는 함수
+    t = time(now)
+    event =[]
+    url = "http://pungduck.hs.kr/calendar.list?ym="+t[0]+t[1]
+    r = requests.get(url)
+    c = r.content
+    html = BeautifulSoup(c,"html.parser") #html 파싱
+    tr = html.find_all("tr") #테그가 tr인 항목을 모두 찾음 (list 형식으로 저장)
+    for r in tr:
+        a = r.find_all("a")
+        for x in a:
+            event.append(x.text) # 중요일 이름을 얻어냄
+    return event
+
 def makeWebhookResult(req):
-    if req.get("result").get("action") != 'lunch':
-        return {}
-    result = req.get("result")
-    parameters = result.get("parameters")
-    zone = parameters.get("lunch")
-    speech = lunchparse()
+    if req.get("result").get("action") = 'lunch':
+        result = req.get("result")
+        parameters = result.get("parameters")
+        zone = parameters.get("lunch")
+        speech = lunchparse()
+    if req.get("result").get("action") = 'schoolevent':
+        speech = "이번 달 일정은"
+        for x in eventparse():
+            speech += x
+        speech += "가 있습니다."
     #print("Respose:")
-    print(speech)
+    #print(speech)
     return {
         "speech":speech,
         "displayText":speech,
