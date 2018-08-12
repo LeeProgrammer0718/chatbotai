@@ -13,12 +13,12 @@ def lunchparse():
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
-    print(html)
+    #print(html)
     menu = html.find("div",{"class":"menuName"})
-    print(menu)
+    #print(menu)
     try:
         span = menu.find("span")
-        print(span.text)
+        #print(span.text)
         return span.text#메뉴출력
     except:
            return "급식이 없어 "
@@ -30,8 +30,8 @@ def makeWebhookResult(req):
     parameters = result.get("parameters")
     zone = parameters.get("lunch")
     speech = lunchparse()
-    print("Respose:")
-    print(speech)
+    #print("Respose:")
+    #print(speech)
     return {
         "speech":speech,
         "displayText":speech,
