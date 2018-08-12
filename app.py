@@ -31,7 +31,7 @@ def makeWebhookResult(req):
     zone = parameters.get("lunch")
     speech = lunchparse()
     #print("Respose:")
-    #print(speech)
+    print(speech)
     return {
         "speech":speech,
         "displayText":speech,
@@ -41,6 +41,7 @@ def makeWebhookResult(req):
 def webhook():
     req = request.get_json(silent=True, force=True)
     res = makeWebhookResult(req)
+    print(res)
     res = json.dumps(res,indent=4)
     print(res)
     r = make_response(res)
