@@ -34,20 +34,6 @@ def lunchparse():  #점심 파싱
     except:
         return "급식이 없어 "
     
-def eventparse(): #학사일정을 파싱하는 함수
-    t = time(now)
-    event =[]
-    url = "http://pungduck.hs.kr/calendar.list?ym="+t[0]+t[1]
-    r = requests.get(url)
-    c = r.content
-    html = BeautifulSoup(c,"html.parser") #html 파싱
-    tr = html.find_all("tr") #테그가 tr인 항목을 모두 찾음 (list 형식으로 저장)
-    for r in tr:
-        a = r.find_all("a")
-        for x in a:
-            event.append(x.text) # 중요일 이름을 얻어냄
-    return event
-
 def makeWebhookResult(req):
     if req.get("result").get("action") = 'lunch':
         result = req.get("result")
