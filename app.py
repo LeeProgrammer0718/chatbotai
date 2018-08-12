@@ -62,7 +62,7 @@ def makeWebhookResult(req):
         event = eventparse()
         for x in event:
             speech += x+','
-        speech += '가 있습니다.'
+        speech += '이 있습니다.'
     else:
         return {}
 
