@@ -35,22 +35,20 @@ def lunchparse():
         return "급식이 없어요!!"
         
 def makeWebhookResult(req):
-    action = req.get("result").get("action") 
-    if  action = 'lunch':
-        result = req.get("result")
-        parameters = result.get("parameters")
-        time = parameters.get("date-time")
-        speech = lunchparse()
+    if req.get("result").get("action") != 'lunch':
+        return {}
+    result = req.get("result")
+    parameters = result.get("parameters")
+    time = parameters.get("date-time")
+    speech = lunchparse()
     #print("Respose:")
     #print(speech)
-        return {
-            "speech":speech,
-            "displayText":speech,
-            "source":"clipai"
-        }
-    else:
-        return {}
-    
+    return {
+        "speech":speech,
+        "displayText":speech,
+        "source":"clipai"
+    }
+
 def time(time): #서버가 미국에 있으므로 한국에서 사용하려면 시차계산 필요
     date = [0,1,2,3]
     year = time.year
