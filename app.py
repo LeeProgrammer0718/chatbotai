@@ -32,14 +32,14 @@ def lunchparse():
         lun = span.text
         return lun #메뉴출력
     except:
-        return "급식이 없어 "
+        return "급식이 없어요!!"
         
 def makeWebhookResult(req):
     if req.get("result").get("action") != 'lunch':
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
-    zone = parameters.get("lunch")
+    time = parameters.get("date-time")
     speech = lunchparse()
     #print("Respose:")
     #print(speech)
