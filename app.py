@@ -18,9 +18,9 @@ def webhook():
     r.headers['Content-Type']= 'application/json'
     return r
 
-def lunchparse():  #점심 파싱
+def lunchparse():
     t = time(now)
-    url = "http://pungduck.hs.kr/lunch.view?date="+t[0]+t[1]+t[2]
+    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+t[1]+t[2]
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
@@ -33,13 +33,14 @@ def lunchparse():  #점심 파싱
         return lun #메뉴출력
     except:
         return "급식이 없어 "
-    
+        
 def makeWebhookResult(req):
     if req.get("result").get("action") = 'lunch':
-        result = req.get("result")
-        parameters = result.get("parameters")
-        zone = parameters.get("lunch")
-        speech = lunchparse()
+        return {}
+    result = req.get("result")
+    parameters = result.get("parameters")
+    zone = parameters.get("lunch")
+    speech = lunchparse()
     #print("Respose:")
     #print(speech)
     return {
