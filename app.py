@@ -42,7 +42,7 @@ def webhook():
     res = json.dumps(res,indent=4)
     r = make_response(res)
     r.headers['Content-Type']= 'application/json'
-    return "testsuccessful"
+    return r
 
 if __name__ == "__main__":
     app.run()
