@@ -54,11 +54,6 @@ def makeWebhookResult(req):
         parameters = result.get("parameters")
         zone = parameters.get("lunch")
         speech = lunchparse()
-    if req.get("result").get("action") = 'schoolevent':
-        speech = "이번 달 일정은"
-        for x in eventparse():
-            speech += x
-        speech += "가 있습니다."
     #print("Respose:")
     #print(speech)
     return {
