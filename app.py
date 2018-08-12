@@ -5,6 +5,22 @@ app = Flask(__name__)
 
 #We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/webhook",methods=['POST'])
+def lunchparse(date): 
+    date = str(date)
+    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+"14"
+    r = requests.get(url)
+    c = r.content
+    html = BeautifulSoup(c,"html.parser") #html 파싱
+    print(html)
+    menu = html.find("div",{"class":"menuName"})
+    print(menu)
+    try:
+        span = menu.find("span")
+        print(span.text)
+        return span.text#메뉴출력
+    except:
+           return "급식이 없어 "
+        
 def makeWebhookResult(req):
     if req.get("result").get("action") != 'lunch':
         return {}
@@ -19,6 +35,7 @@ def makeWebhookResult(req):
         "displayText":speech,
         "source":"clipai"
     }
+
 def webhook():
     req = request.get_json(silent=True, force=True)
     res = makeWebhookResult(req)
