@@ -33,8 +33,9 @@ def lunchparse():
         return lun #메뉴출력
     except:
         return "급식이 없어요!!"
+
 def eventparse(): #학사일정을 파싱하는 함수
-     t = time(now)
+    t = time(now)
     event =[]
     url = "http://pungduck.hs.kr/calendar.list?ym="+t[0]+t[1]
     r = requests.get(url)
