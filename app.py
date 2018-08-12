@@ -8,9 +8,9 @@ app = Flask(__name__)
 #We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/webhook",methods=['POST'])
 
-def lunchparse(date):
-    date = str(date)
-    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+date
+def lunchparse(da):
+    dat=  str(da)
+    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+dat
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
