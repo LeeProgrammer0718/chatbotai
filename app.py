@@ -7,6 +7,15 @@ app = Flask(__name__)
 
 #We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/webhook",methods=['POST'])
+def webhook():
+    req = request.get_json(silent=True, force=True)
+    res = makeWebhookResult(req)
+    print(res)
+    res = json.dumps(res,indent=4)
+    print(res)
+    r = make_response(res)
+    r.headers['Content-Type']= 'application/json'
+    return r
 
 def lunchparse():
     url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+"14"
@@ -38,15 +47,6 @@ def makeWebhookResult(req):
         "source":"clipai"
     }
 
-def webhook():
-    req = request.get_json(silent=True, force=True)
-    res = makeWebhookResult(req)
-    print(res)
-    res = json.dumps(res,indent=4)
-    print(res)
-    r = make_response(res)
-    r.headers['Content-Type']= 'application/json'
-    return r
 
 if __name__ == "__main__":
     app.run()
