@@ -3,7 +3,7 @@ import os
 app = Flask(__name__)
 
 #We will receive messages that Facebook sends our bot at this endpoint
-@app.route("/webhook")
+@app.route("/webhook",methods=['POST'])
 def webhook():
     return "testsuccessful"
 
