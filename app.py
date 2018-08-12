@@ -1,10 +1,13 @@
 from flask import Flask, request
 import json
 import os
+import requests
+from bs4 import BeautifulSoup
 app = Flask(__name__)
 
 #We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/webhook",methods=['POST'])
+
 def lunchparse(date): 
     date = str(date)
     url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+"14"
