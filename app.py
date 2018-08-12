@@ -35,7 +35,8 @@ def lunchparse():
         return "급식이 없어요!!"
         
 def makeWebhookResult(req):
-    if req.get("result").get("action") = 'lunch':
+    action = req.get("result").get("action") 
+    if  action = 'lunch':
         result = req.get("result")
         parameters = result.get("parameters")
         time = parameters.get("date-time")
