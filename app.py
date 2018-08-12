@@ -36,14 +36,16 @@ def lunchparse():
         
 def makeWebhookResult(req):
     action = req.get("result").get("action")
-    if req.get("result").get("action") != 'lunch':
+    if  action == 'lunch':
+        result = req.get("result")
+        parameters = result.get("parameters")
+        time = parameters.get("date-time")
+        speech = lunchparse()
+        #print("Respose:")
+        #print(speech)
+    else:
         return {}
-    result = req.get("result")
-    parameters = result.get("parameters")
-    time = parameters.get("date-time")
-    speech = lunchparse()
-    #print("Respose:")
-    #print(speech)
+
     return {
         "speech":speech,
         "displayText":speech,
