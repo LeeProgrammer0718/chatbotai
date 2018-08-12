@@ -8,8 +8,7 @@ app = Flask(__name__)
 #We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/webhook",methods=['POST'])
 
-def lunchparse(date): 
-    date = str(date)
+def lunchparse(): 
     url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+"08"+"14"
     r = requests.get(url)
     c = r.content
@@ -30,7 +29,7 @@ def makeWebhookResult(req):
     result = req.get("result")
     parameters = result.get("parameters")
     zone = parameters.get("lunch")
-    speech = lunchparse(14)
+    speech = lunchparse()
     print("Respose:")
     print(speech)
     return {
