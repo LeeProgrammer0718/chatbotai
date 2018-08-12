@@ -35,15 +35,12 @@ def lunchparse():
         return "급식이 없어 "
         
 def makeWebhookResult(req):
-    if req.get("result").get("action")='lunch':
-        result = req.get("result")
-        parameters = result.get("parameters")
-        zone = parameters.get("lunch")
-        speech = lunchparse()
-    elif req.get("result").get("action")='schoolevent':
-        speech = 'testsuccessful'
-    else:
-        return{}
+    if req.get("result").get("action") != 'lunch':
+        return {}
+    result = req.get("result")
+    parameters = result.get("parameters")
+    zone = parameters.get("lunch")
+    speech = lunchparse()
     #print("Respose:")
     #print(speech)
     return {
