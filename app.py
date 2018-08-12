@@ -22,6 +22,8 @@ def webhook():
     req = request.get_json(silent=True, force=True)
     res = makeWebhookResult(req)
     res = json.dumps(res,indent=4)
+    r = make_response(res)
+    r.headers['Content-Type']= 'application/json'
     return "testsuccessful"
 
 if __name__ == "__main__":
