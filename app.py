@@ -18,8 +18,8 @@ def lunchparse():
     #print(menu)
     try:
         span = menu.find("span")
-        print(span.text)
-        return span.text #메뉴출력
+        lun = span.text
+        return lun #메뉴출력
     except:
         return "급식이 없어 "
         
