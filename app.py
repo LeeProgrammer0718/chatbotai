@@ -18,8 +18,8 @@ def lunchparse():
     #print(menu)
     try:
         span = menu.find("span")
-        #print(span.text)
-        return span.text#메뉴출력
+        print(span.text)
+        return span.text #메뉴출력
     except:
            return "급식이 없어 "
         
@@ -31,7 +31,7 @@ def makeWebhookResult(req):
     zone = parameters.get("lunch")
     speech = lunchparse()
     #print("Respose:")
-    #print(speech)
+    print(speech)
     return {
         "speech":speech,
         "displayText":speech,
@@ -43,6 +43,7 @@ def webhook():
     res = makeWebhookResult(req)
     res = json.dumps(res,indent=4)
     r = make_response(res)
+    print(r)
     r.headers['Content-Type']= 'application/json'
     return r
 
