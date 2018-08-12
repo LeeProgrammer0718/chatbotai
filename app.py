@@ -57,7 +57,7 @@ def makeWebhookResult(req):
         speech = lunchparse()
         #print("Respose:")
         #print(speech)
-    elif actioin == 'schoolevent':
+    elif action == 'schoolevent':
         speech = '이번달 일정에'
         event = eventparse()
         for x in event:
