@@ -36,7 +36,7 @@ def lunchparse():
 def eventparse(): #학사일정을 파싱하는 함수
      t = time(now)
     event =[]
-    url = "http://pungduck.hs.kr/calendar.list?ym="+year+month
+    url = "http://pungduck.hs.kr/calendar.list?ym="+t[0]+t[1]
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
@@ -58,7 +58,8 @@ def makeWebhookResult(req):
         #print(speech)
     elif actioin == 'schoolevent':
         speech = '이번달 일정에'
-        for x in eventparse():
+        event = eventparse()
+        for x in event:
             speech += x
         speech += '가 있습니다.'
     else:
