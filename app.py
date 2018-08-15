@@ -18,9 +18,14 @@ def webhook():
     r.headers['Content-Type']= 'application/json'
     return r
 
-def lunchparse():
+def lunchparse(date):
     t = time(now)
-    url = "http://pungduck.hs.kr/lunch.view?date="+"2018"+t[1]+t[2]
+    if date == '':
+        url = "http://pungduck.hs.kr/lunch.view?date="+t[0]+t[1]+t[2]
+    else:
+        day = date[8]+date[9]
+        month = date[5]+date[6]
+        url = "http://pungduck.hs.kr/lunch.view?date="+t[0]+month+day
     r = requests.get(url)
     c = r.content
     html = BeautifulSoup(c,"html.parser") #html 파싱
@@ -54,7 +59,10 @@ def makeWebhookResult(req):
         result = req.get("result")
         parameters = result.get("parameters")
         time = parameters.get("date-time")
-        speech = lunchparse()
+        if time == '':
+            speech = lunchparse()
+        else:
+            speech = lunchparse(time)
         #print("Respose:")
         #print(speech)
     elif action == 'schoolevent':
