@@ -32,7 +32,7 @@ def lunchparse():
         lun = span.text
         return lun #메뉴출력
     except:
-        return "급식이 없어요!!"
+        return "급식이 없네요!!"
 
 def eventparse(): #학사일정을 파싱하는 함수
     t = time(now)
