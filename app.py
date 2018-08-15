@@ -59,10 +59,7 @@ def makeWebhookResult(req):
         result = req.get("result")
         parameters = result.get("parameters")
         time = parameters.get("date-time")
-        if time == '':
-            speech = lunchparse()
-        else:
-            speech = lunchparse(time)
+        speech = lunchparse(time)
         #print("Respose:")
         #print(speech)
     elif action == 'schoolevent':
