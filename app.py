@@ -43,7 +43,7 @@ def bus(servicekey,stationid):
     url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey={}&stationId={}".format(servicekey,stationid)
     r = requests.get(url)
     c = r.content
-    print(c)
+    #print(c)
     businfo = {}
     html = BeautifulSoup(c,"html.parser") #html 파싱
     predicttime1= html.find_all("predicttime1") #테그가 tr인 항목을 모두 찾음 (list 형식으로 저장)
