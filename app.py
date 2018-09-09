@@ -89,7 +89,7 @@ def makeWebhookResult(req):
         servicekey = os.environ['serviceKey']
         stationId = '200000078'
         speech = '테스트중인 기능입니다.'
-        speech += bus(servicekey,stationId)
+        speech += str(bus(servicekey,stationId))
     else:
         return {}
 
