@@ -39,6 +39,23 @@ def lunchparse(date):
     except:
         return "급식이 없네요!!"
 
+def bus(servicekey,stationid):
+    url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey={}&stationId={}".format(servicekey,stationid)
+    r = requests.get(url)
+    c = r.content
+    print(c)
+    businfo = {}
+    html = BeautifulSoup(c,"html.parser") #html 파싱
+    predicttime1= html.find_all("predicttime1") #테그가 tr인 항목을 모두 찾음 (list 형식으로 저장)
+    predicttime2= html.find_all("predicttime2")
+    plateno1 = html.find_all("plateno1")
+    plateno2 = html.find_all("plateno2")
+    businfo[plateno1[0].text] = predicttime1[0].text + "분 뒤 도착"
+    businfo[plateno2[0].text] = predicttime2[0].text + "분 뒤 도착"
+    #busarrivallist = response.find_all()
+    return businfo
+    
+    
 def eventparse(): #학사일정을 파싱하는 함수
     t = time(now)
     event =[]
@@ -68,6 +85,11 @@ def makeWebhookResult(req):
         for x in event:
             speech += x+','
         speech += '이 있습니다.'
+    elif action == 'bus':
+        servicekey = os.environ['serviceKey']
+        stationId = '200000078'
+        speech = '테스트중인 기능입니다.'
+        speech += bus(servicekey,stationId)
     else:
         return {}
 
