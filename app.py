@@ -38,7 +38,21 @@ def lunchparse(date):
         return lun #메뉴출력
     except:
         return "급식이 없네요!!"
-
+def weather(appkey):
+    url = 'https://api2.sktelecom.com/weather/summary?version=1&lat= 37.1234&lon=126.1234&appKey={}'.format(appkey)
+    response = requests.get(url)
+    if response.status_code == 200:
+        parsedata =json.loads(response.text)
+        #print(parsedata)
+        today = parsedata['weather']['summary'][0]['today']#['sky']
+        sky = today['sky']['name']
+        tmax = today['temperature']['tmax']
+        tmin = today['temperature']['tmin']
+        weather = [tmax,tmin,sky]
+        return weather
+    else:
+        return 'error'
+    
 def bus(servicekey,stationid):
     url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey={}&stationId={}".format(servicekey,stationid)
     r = requests.get(url)
@@ -54,7 +68,7 @@ def bus(servicekey,stationid):
     businfo[plateno2[0].text] = predicttime2[0].text + "분 뒤 도착"
     #busarrivallist = response.find_all()
     return businfo
-    
+
     
 def eventparse(): #학사일정을 파싱하는 함수
     t = time(now)
@@ -90,6 +104,19 @@ def makeWebhookResult(req):
         stationId = '200000078'
         speech = '테스트중인 기능입니다.'
         speech += str(bus(servicekey,stationId))
+    elif action == 'weather':
+        appkey = os.environ['appkey']
+        info = weather(appkey)
+        speech = '오늘 최고기온은'
+        speech += str(info[0])+'도 \n'
+        speech += '최저기온은'
+        speech += str(info[1])+'도 이며 \n'
+        speech += '하늘상태는'
+        speech += str(info[2])+'입니다.'
+        crossing = info[0] - info[1]
+        if crossing > 10:
+            speech += '일교차가 크니 조심하세요!!'
+        
     else:
         return {}
 
