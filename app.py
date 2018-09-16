@@ -39,7 +39,7 @@ def lunchparse(date):
     except:
         return "급식이 없네요!!"
 def weather(appkey):
-    url = 'https://api2.sktelecom.com/weather/summary?version=1&lat= 37.1234&lon=126.1234&appKey={}'.format(appkey)
+    url = 'https://api2.sktelecom.com/weather/summary?version=1&lat= 37.316990&lon=127.089295&appKey={}'.format(appkey)
     response = requests.get(url)
     if response.status_code == 200:
         parsedata =json.loads(response.text)
