@@ -113,10 +113,6 @@ def makeWebhookResult(req):
         speech += str(info[1])+'도 이며 \n'
         speech += '하늘상태는'
         speech += str(info[2])+'입니다.'
-        crossing = int(info[0]) - int(info[1])
-        if crossing > 10:
-            speech += '일교차가 크니 조심하세요!!'
-        
     else:
         return {}
 
